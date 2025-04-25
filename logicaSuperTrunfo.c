@@ -1,25 +1,119 @@
 #include <stdio.h>
 
 // Desafio Super Trunfo - Países
+
 // Tema 2 - Comparação das Cartas
+
 // Este código inicial serve como base para o desenvolvimento do sistema de comparação de cartas de cidades. 
+
+// Função para comparar dois valores e determinar o vencedor
+int comparar_valores(float valor1, float valor2, int invertido) {
+    if (invertido) {
+        return (valor1 < valor2);
+    } else {
+        return (valor1 > valor2);
+    }
+}
 // Siga os comentários para implementar cada parte do desafio.
 
 int main() {
     // Definição das variáveis para armazenar as propriedades das cidades
     // Você pode utilizar o código do primeiro desafio
+    printf("\nDesafio Cartas Super Trunfo\n");
 
+    char estado1[3], estado2[3];
+    char codigo1[4], codigo2[4];
+    char nomeCidade1[50], nomeCidade2[50];
+    int populacao1, populacao2;
+    float area1, area2, pib1, pib2;
+    int pontosTuristicos1, pontosTuristicos2;
+    float densidadePopulacional1, densidadePopulacional2;
+    float pibPercapita1, pibPercapita2;
+    float superPoder1, superPoder2;
+
+
+
+    printf("\n----------------------\n");
     
     // Cadastro das Cartas:
     // Implemente a lógica para solicitar ao usuário que insira os dados das cidades
     // utilizando a função scanf para capturar as entradas.
     // utilize o código do primeiro desafio
+    
+    // Entrada da primeira carta
+    printf("\nDigite os dados da primeira carta!\n");
+    printf("Estado (ex: SP): ");
+    scanf(" %2s", estado1);
+
+    printf("Código da carta (ex: A01): ");
+    scanf(" %3s", codigo1);
+
+    printf("Nome da cidade: ");
+    getchar(); // limpa buffer do \n
+    scanf("%[^\n]", nomeCidade1);
+
+    printf("População: ");
+    scanf("%d", &populacao1);
+
+    printf("Área (em km²): ");
+    scanf("%f", &area1);
+
+    printf("PIB da cidade (em bilhões de reais): ");
+    scanf("%f", &pib1);
+
+    printf("Número de pontos turísticos: ");
+    scanf("%d", &pontosTuristicos1);
 
     // Exemplo:
     // printf("Digite o código da cidade: ");
     // scanf("%s", codigo);
-    // 
     // (Repita para cada propriedade)
+    // Cálculos da primeira carta
+    densidadePopulacional1 = (float) populacao1 / area1;
+    pibPercapita1 = (pib1 * 1000000000.0) / populacao1;
+    superPoder1 = populacao1 + area1 + (pib1 * 10) + pontosTuristicos1 + (pibPercapita1 / 1000.0) + (1.0 / densidadePopulacional1);
+
+    printf("\n----------------------\n");
+
+    // Entrada da segunda carta
+    printf("\nDigite os dados da segunda carta!\n");
+    printf("Estado (ex: SP): ");
+    scanf(" %2s", estado2);
+
+    printf("Código da carta (ex: A01): ");
+    scanf(" %3s", codigo2);
+
+    printf("Nome da cidade: ");
+    getchar(); // limpa buffer
+    scanf("%[^\n]", nomeCidade2);
+
+    printf("População: ");
+    scanf("%d", &populacao2);
+
+    printf("Área (em km²): ");
+    scanf("%f", &area2);
+
+    printf("PIB da cidade (em bilhões de reais): ");
+    scanf("%f", &pib2);
+
+    printf("Número de pontos turísticos: ");
+    scanf("%d", &pontosTuristicos2);
+
+    // Cálculos da segunda carta
+    densidadePopulacional2 = (float) populacao2 / area2;
+    pibPercapita2 = (pib2 * 1000000000.0) / populacao2;
+    superPoder2 = populacao2 + area2 + (pib2 * 10) + pontosTuristicos2 + (pibPercapita2 / 1000.0) + (1.0 / densidadePopulacional2);
+
+    printf("\n----------------------\n");
+
+    // Exibição das cartas
+    printf("\nCarta 1 - %s (%s):\n", nomeCidade1, estado1);
+    printf("População: %d\n", populacao1);
+
+    printf("\nCarta 2 - %s (%s):\n", nomeCidade2, estado2);
+    printf("População: %d\n", populacao2);
+
+    printf("\n----------------------\n");
 
     // Comparação de Cartas:
     // Desenvolva a lógica de comparação entre duas cartas.
@@ -31,13 +125,28 @@ int main() {
     // } else {
     //     printf("Cidade 2 tem maior população.\n");
     // }
+// Comparação de apenas um atributo: POPULAÇÃO
+printf("\nComparação de Cartas (Atributo: População): \n");
 
-    // Exibição dos Resultados:
+printf("Carta 1 - %s (%s): %d habitantes.\n", nomeCidade1, estado1, populacao1);
+printf("Carta 2 - %s (%s): %d habitantes.\n", nomeCidade2, estado2, populacao2);
+
+// Exibição dos Resultados:
     // Após realizar as comparações, exiba os resultados para o usuário.
     // Certifique-se de que o sistema mostre claramente qual carta venceu e com base em qual atributo.
 
     // Exemplo:
     // printf("A cidade vencedora é: %s\n", cidadeVencedora);
+int vencedor = comparar_valores((float) populacao1, (float) populacao2, 0);
 
-    return 0;
+if (vencedor == 1) {
+    printf("\nResultado: Carta 1 (%s) venceu!\n", nomeCidade1);
+} else {
+    printf("\nResultado: Carta 2 (%s) venceu!\n", nomeCidade2);
 }
+
+return 0;
+}
+   
+
+
