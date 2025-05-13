@@ -1,24 +1,18 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
-// Desafio Super Trunfo - Países
-
-// Tema 2 - Comparação das Cartas
-
-// Este código inicial serve como base para o desenvolvimento do sistema de comparação de cartas de cidades. 
-
-// Função para comparar dois valores e determinar o vencedor
+// comparando valores
 int comparar_valores(float valor1, float valor2, int invertido) {
-    if (invertido) {
-        return (valor1 < valor2);
-    } else {
-        return (valor1 > valor2);
-    }
+    if (valor1 == valor2) return 0; // empate
+    if (invertido) return (valor1 < valor2) ? 1 : 2;
+    else return (valor1 > valor2) ? 1 : 2;
 }
-// Siga os comentários para implementar cada parte do desafio.
+
 
 int main() {
     // Definição das variáveis para armazenar as propriedades das cidades
-    // Você pode utilizar o código do primeiro desafio
     printf("\nDesafio Cartas Super Trunfo\n");
 
     char estado1[3], estado2[3];
@@ -27,18 +21,14 @@ int main() {
     int populacao1, populacao2;
     float area1, area2, pib1, pib2;
     int pontosTuristicos1, pontosTuristicos2;
-    float densidadePopulacional1, densidadePopulacional2;
+    float densidade1, densidade2;
     float pibPercapita1, pibPercapita2;
     float superPoder1, superPoder2;
+ 
 
 
 
     printf("\n----------------------\n");
-    
-    // Cadastro das Cartas:
-    // Implemente a lógica para solicitar ao usuário que insira os dados das cidades
-    // utilizando a função scanf para capturar as entradas.
-    // utilize o código do primeiro desafio
     
     // Entrada da primeira carta
     printf("\nDigite os dados da primeira carta!\n");
@@ -64,14 +54,9 @@ int main() {
     printf("Número de pontos turísticos: ");
     scanf("%d", &pontosTuristicos1);
 
-    // Exemplo:
-    // printf("Digite o código da cidade: ");
-    // scanf("%s", codigo);
-    // (Repita para cada propriedade)
-    // Cálculos da primeira carta
-    densidadePopulacional1 = (float) populacao1 / area1;
-    pibPercapita1 = (pib1 * 1000000000.0) / populacao1;
-    superPoder1 = populacao1 + area1 + (pib1 * 10) + pontosTuristicos1 + (pibPercapita1 / 1000.0) + (1.0 / densidadePopulacional1);
+    densidade1 = populacao1 / area1;
+    pibPercapita1 = (pib1 * 1e9) / populacao1;
+    superPoder1 = populacao1 + area1 + (pib1 * 10) + pontosTuristicos1 + (pibPercapita1 / 1000.0) + (1.0 / densidade1);
 
     printf("\n----------------------\n");
 
@@ -100,9 +85,9 @@ int main() {
     scanf("%d", &pontosTuristicos2);
 
     // Cálculos da segunda carta
-    densidadePopulacional2 = (float) populacao2 / area2;
-    pibPercapita2 = (pib2 * 1000000000.0) / populacao2;
-    superPoder2 = populacao2 + area2 + (pib2 * 10) + pontosTuristicos2 + (pibPercapita2 / 1000.0) + (1.0 / densidadePopulacional2);
+    densidade2 = populacao2 / area2;
+    pibPercapita2 = (pib2 * 1e9) / populacao2;
+    superPoder2 = populacao2 + area2 + (pib2 * 10) + pontosTuristicos2 + (pibPercapita2 / 1000.0) + (1.0 / densidade2);
 
     printf("\n----------------------\n");
 
@@ -116,27 +101,14 @@ int main() {
     printf("\n----------------------\n");
 
     // Comparação de Cartas:
-    // Desenvolva a lógica de comparação entre duas cartas.
-    // Utilize estruturas de decisão como if, if-else para comparar atributos como população, área, PIB, etc.
-
-    // Exemplo:
-    // if (populacaoA > populacaoB) {
-    //     printf("Cidade 1 tem maior população.\n");
-    // } else {
-    //     printf("Cidade 2 tem maior população.\n");
-    // }
-// Comparação de apenas um atributo: POPULAÇÃO
+   // Comparação de apenas um atributo: POPULAÇÃO
 printf("\nComparação de Cartas (Atributo: População): \n");
 
 printf("Carta 1 - %s (%s): %d habitantes.\n", nomeCidade1, estado1, populacao1);
 printf("Carta 2 - %s (%s): %d habitantes.\n", nomeCidade2, estado2, populacao2);
 
 // Exibição dos Resultados:
-    // Após realizar as comparações, exiba os resultados para o usuário.
-    // Certifique-se de que o sistema mostre claramente qual carta venceu e com base em qual atributo.
-
-    // Exemplo:
-    // printf("A cidade vencedora é: %s\n", cidadeVencedora);
+    
 int vencedor = comparar_valores((float) populacao1, (float) populacao2, 0);
 
 if (vencedor == 1) {
@@ -145,8 +117,67 @@ if (vencedor == 1) {
     printf("\nResultado: Carta 2 (%s) venceu!\n", nomeCidade2);
 }
 
-return 0;
+// Criação do menu
+int opcao;
+
+    printf("\nEscolha o atributo para comparar:\n");
+    printf("1 - População\n");
+    printf("2 - Área\n");
+    printf("3 - PIB\n");
+    printf("4 - Pontos Turísticos\n");
+    printf("5 - Densidade Demográfica (MENOR vence!)\n");
+    printf("6 - SuperPoder (composição de múltiplos atributos)\n");
+    printf("Digite a opção: ");
+    scanf("%d", &opcao);
+
+    printf("\n### RESULTADO DA COMPARAÇÃO ###\n");
+    switch (opcao) {
+        case 1:
+            printf("Atributo: População\n");
+            printf("%s: %d | %s: %d\n", nomeCidade1, populacao1, nomeCidade2, populacao2);
+            vencedor = comparar_valores(populacao1, populacao2, 0);
+            break;
+        case 2:
+            printf("Atributo: Área\n");
+            printf("%s: %.2f km² | %s: %.2f km²\n", nomeCidade1, area1, nomeCidade2, area2);
+            vencedor = comparar_valores(area1, area2, 0);
+            break;
+        case 3:
+            printf("Atributo: PIB\n");
+            printf("%s: R$ %.2f bi | %s: R$ %.2f bi\n", nomeCidade1, pib1, nomeCidade2, pib2);
+            vencedor = comparar_valores(pib1, pib2, 0);
+            break;
+        case 4:
+            printf("Atributo: Pontos Turísticos\n");
+            printf("%s: %d | %s: %d\n", nomeCidade1, pontosTuristicos1, nomeCidade2, pontosTuristicos2);
+            vencedor = comparar_valores(pontosTuristicos1, pontosTuristicos2, 0);
+            break;
+        case 5:
+            printf("Atributo: Densidade Demográfica (MENOR vence!)\n");
+            printf("%s: %.2f hab/km² | %s: %.2f hab/km²\n", nomeCidade1, densidade1, nomeCidade2, densidade2);
+            vencedor = comparar_valores(densidade1, densidade2, 1);
+            break;
+        case 6:
+            printf("Atributo: SuperPoder\n");
+            printf("%s: %.2f | %s: %.2f\n", nomeCidade1, superPoder1, nomeCidade2, superPoder2);
+            vencedor = comparar_valores(superPoder1, superPoder2, 0);
+            break;   
+        default:
+            printf("Opção inválida!\n");
+            return 1;
+    }
+
+    if (vencedor == 1)
+        printf("\nVencedora: Carta 1 - %s\n", nomeCidade1);
+    else if (vencedor == 2)
+        printf("\nVencedora: Carta 2 - %s\n", nomeCidade2);
+    else
+        printf("\nResultado: Empate!\n");
+
+    return 0;
 }
+
+
    
 
 
